@@ -1,8 +1,9 @@
 const gulp = require('gulp');
-const minify = require('gulp-uglify-es').default;
+const replace = require('gulp-replace');
 
 gulp.task('default', () =>
-  gulp.src(['rules/*.js'])
-    .pipe(minify())
+  gulp
+    .src(['rules/*.js'])
+    .pipe(replace('module.exports = { rule };', ''))
     .pipe(gulp.dest('dist'))
 );

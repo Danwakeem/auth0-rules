@@ -1,12 +1,16 @@
 language: node_js
 node_js:
-- node
+  - 8
 cache:
   directories:
   - node_modules
-before_deploy:
-  - npm install now --no-save
-  - now rm node-cd --token $NOW_TOKEN --yes || true
+jobs:
+  include:
+    - stage: "Lint and Test"
+      script: npm run lint
+      name: "Linting"
+    - script: npm run travis:test
+      name: "Test"
 deploy:
 - provider: script
   script: npm run deploy

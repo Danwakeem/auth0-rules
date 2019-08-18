@@ -1,0 +1,2 @@
+# Auth0 Rules Test
+I wanted to figure out a clean way to develop, test, and deploy rules to auth0. So this repo is just a sample on how to do that. I am sure there might be better ways out there but none of them were clear to me.

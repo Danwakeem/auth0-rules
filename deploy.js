@@ -1,44 +1,43 @@
 const fs = require('fs');
 const _ = require('lodash');
-const ManagementClient = require('auth0').ManagementClient;
+const { ManagementClient } = require('auth0');
 
 const management = new ManagementClient({
   domain: process.env.DOMAIN,
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  // scope: 'read:rules update:rules create:rules read:rules_configs update:rules_configs',
   audience: `https://${process.env.DOMAIN}/api/v2/`,
   tokenProvider: {
     enableCache: true,
     cacheTTLInSeconds: 10
-  },
+  }
 });
 
 uploadExistingRules = async (existingRules, rules) => {
-  for (let index in existingRules) {
+  for (const index in existingRules) {
     const eRule = existingRules[index];
-    const foundRule = _.find(rules, { name: eRule.name });
+    const foundRule = _.find(rules, { name: eRule.name.replace('.js', '') });
     if (foundRule) {
       await management.updateRule({ id: foundRule.id }, eRule);
     }
   }
 };
 
-uploadNewRules = async (newRules) => {
-  for (let index in newRules) {
+uploadNewRules = async newRules => {
+  for (const index in newRules) {
     const rule = newRules[index];
     await management.createRule(rule);
   }
 };
 
-const getRuleFiles = (path) => {
-  const files = fs.readdirSync('./dist', { encoding: 'utf8' });
-  return files.map((fileName) => {
-    const script = fs.readFileSync(`./dist/${fileName}`, { encoding: 'utf8' });
+const getRuleFiles = path => {
+  const files = fs.readdirSync(path, { encoding: 'utf8' });
+  return files.map(fileName => {
+    const script = fs.readFileSync(`${path}/${fileName}`, { encoding: 'utf8' });
     return {
       enabled: true,
       script,
-      name: _.snakeCase(fileName.replace('.js', '')),
+      name: _.snakeCase(fileName.replace('.js', ''))
     };
   });
 };
@@ -51,7 +50,7 @@ const deployRules = async () => {
   const existingRules = _.differenceBy(ruleFiles, newRules, 'name');
 
   await uploadNewRules(newRules);
-  await uploadExistingRules(existingRules);
+  await uploadExistingRules(existingRules, rules);
 };
 
 deployRules();
