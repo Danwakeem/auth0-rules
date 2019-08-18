@@ -1,16 +1,18 @@
-const sandbox = require("sinon").createSandbox();
+const sandbox = require('sinon').createSandbox();
 const proxyquire = require('proxyquire');
 
 describe('log', () => {
-  let rollbarSpy, log, cb;
+  let rollbarSpy;
+  let log;
+  let cb;
   beforeEach(() => {
     global.configuration = {
-      rollbarToken: 'xxx',
+      rollbarToken: 'xxx'
     };
     rollbarSpy = sandbox.stub();
     rollbarSpy.prototype.info = sandbox.spy();
     const ruleFile = proxyquire('./../../rules/log', {
-      rollbar: rollbarSpy,
+      rollbar: rollbarSpy
     });
     log = ruleFile.rule;
     cb = sandbox.spy();
