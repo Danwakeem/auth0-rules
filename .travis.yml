@@ -11,9 +11,11 @@ jobs:
       name: "Linting"
     - script: npm run travis:test
       name: "Test"
-deploy:
-- provider: script
-  script: npm run deploy
-  skip_cleanup: true
-  on:
-    branch: master
+    - stage: "Deploy"
+      if: (NOT type IN (pull_request)) AND ((branch = master))
+      deploy:
+      - provider: script
+        skip_cleanup: true
+        script: npm run deploy
+        on:
+          branch: master
