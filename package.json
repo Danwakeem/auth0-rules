@@ -1,0 +1,46 @@
+{
+  "name": "auth0-test",
+  "version": "1.0.0",
+  "description": "Test bed for auth0 rules",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "gulp",
+    "deploy": "node -r dotenv/config deploy",
+    "test": "mocha ./tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danwakeem/auth0-rules.git"
+  },
+  "keywords": [
+    "auth0",
+    "rules"
+  ],
+  "author": "Danwakeem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Danwakeem/auth0-rules/issues"
+  },
+  "homepage": "https://github.com/Danwakeem/auth0-rules#readme",
+  "devDependencies": {
+    "auth0": "^2.19.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "gulp": "^4.0.2",
+    "gulp-minify": "^3.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglify-es": "^1.0.4",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "lodash": "^4.17.15",
+    "rollbar": "^2.12.0"
+  }
+}
