@@ -7,6 +7,7 @@ function rule(user, context, callback) {
     captureUnhandledRejections: true
   });
   rollbar.info('New User', user);
+  console.log('Hello Jose');
   callback(null, user, context);
 }
 
