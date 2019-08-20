@@ -1,7 +1,7 @@
 const sandbox = require('sinon').createSandbox();
 const proxyquire = require('proxyquire');
 
-describe('log', () => {
+fdescribe('log', () => {
   let rollbarSpy;
   let log;
   let cb;

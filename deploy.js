@@ -1,6 +1,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 const { ManagementClient } = require('auth0');
+const rulesMeta = require('./rule.meta');
 
 const management = new ManagementClient({
   domain: process.env.DOMAIN,
@@ -34,10 +35,18 @@ const getRuleFiles = path => {
   const files = fs.readdirSync(path, { encoding: 'utf8' });
   return files.map(fileName => {
     const script = fs.readFileSync(`${path}/${fileName}`, { encoding: 'utf8' });
+    const ruleMeta = _.find(rulesMeta, { name: eRule.name.replace('.js', '') });
+    let enabled = true;
+    let order;
+    if (ruleMeta) {
+      order = ruleMeta.order;
+      enabled = ruleMeta.enabled;
+    }
     return {
-      enabled: true,
+      enabled,
       script,
-      name: _.snakeCase(fileName.replace('.js', ''))
+      name: _.snakeCase(fileName.replace('.js', '')),
+      order,
     };
   });
 };
