@@ -47,7 +47,7 @@
     "sinon": "^7.4.1"
   },
   "dependencies": {
-    "auth0": "^2.19.0",
+    "auth0": "^2.27.1",
     "dotenv": "^8.1.0",
     "lodash": "^4.17.15",
     "request": "^2.88.0",
